@@ -1,4 +1,6 @@
-# pokedex
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c5255faa-c79a-432e-93cf-18c534d2a5cc/deploy-status)](https://app.netlify.com/sites/practical-neumann-b373ab/deploys)
+
+# Vue3 Pokedex
 
 ## Project setup
 ```
