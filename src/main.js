@@ -9,6 +9,7 @@ import BaseBadge from './components/ui/BaseBadge.vue';
 import BaseSpinner from './components/ui/BaseSpinner.vue';
 import BaseSearch from './components/ui/BaseSearch.vue';
 import Multiselect from '@vueform/multiselect';
+import './registerServiceWorker'
 
 
 const BaseDialog = defineAsyncComponent(() =>
