@@ -6,11 +6,11 @@
         <span class="stat">{{ stats[0].base_stat }}</span>
       </h5>
       <h5>
-        🛡️ {{ stats[1].stat.name }}
+        ⚔️ {{ stats[1].stat.name }}
         <span class="stat">{{ stats[1].base_stat }}</span>
       </h5>
       <h5>
-        👊 {{ stats[2].stat.name }}
+        🛡️ {{ stats[2].stat.name }}
         <span class="stat">{{ stats[2].base_stat }}</span>
       </h5>
       <h5>
