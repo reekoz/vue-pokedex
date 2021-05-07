@@ -2,6 +2,8 @@
 
 # Vue3 Pokedex
 
+🚀 Demo https://vue3-pokedex.netlify.app
+
 ## Project setup
 ```
 npm install
