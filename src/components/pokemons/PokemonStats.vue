@@ -1,12 +1,30 @@
 <template>
   <section class="stats">
     <base-card>
-      <h3>❤️ {{ stats[0].base_stat }}</h3>
-      <h3>🛡️ {{ stats[1].base_stat }}</h3>
-      <h3>👊 {{ stats[2].base_stat }}</h3>
-      <h3>🔮 {{ stats[3].base_stat }}</h3>
-      <h3>🔰 {{ stats[4].base_stat }}</h3>
-      <h3>⚡️ {{ stats[5].base_stat }}</h3>
+      <h5>
+        ❤️ {{ stats[0].stat.name }}
+        <span class="stat">{{ stats[0].base_stat }}</span>
+      </h5>
+      <h5>
+        🛡️ {{ stats[1].stat.name }}
+        <span class="stat">{{ stats[1].base_stat }}</span>
+      </h5>
+      <h5>
+        👊 {{ stats[2].stat.name }}
+        <span class="stat">{{ stats[2].base_stat }}</span>
+      </h5>
+      <h5>
+        🔮 {{ stats[3].stat.name }}
+        <span class="stat">{{ stats[3].base_stat }}</span>
+      </h5>
+      <h5>
+        🔰 {{ stats[4].stat.name }}
+        <span class="stat">{{ stats[4].base_stat }}</span>
+      </h5>
+      <h5>
+        ⚡️ {{ stats[5].stat.name }}
+        <span class="stat">{{ stats[5].base_stat }}</span>
+      </h5>
     </base-card>
   </section>
 </template>
@@ -18,4 +36,15 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+span,
+h5 {
+  text-transform: uppercase;
+}
+
+.stat {
+  font-size: 1.15rem;
+  float: right;
+  margin-left: 1rem;
+}
+</style>
