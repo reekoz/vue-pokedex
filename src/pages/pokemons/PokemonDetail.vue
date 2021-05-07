@@ -19,20 +19,7 @@
         </section>
       </base-card>
     </section>
-    <section class="pokemon-list">
-      <base-card
-        v-for="evo in p.evolutions"
-        :key="evo.name"
-        :class="evoSelected(evo.id)"
-        class="clickable"
-      >
-        <div class="pokemon-info" @click="changePokemon(evo.id)">
-          <img :src="evo.image" />
-          <h4>{{ evo.name }}</h4>
-        </div>
-        <div class="actions"></div>
-      </base-card>
-    </section>
+    <pokemon-evolution :pokemon="p"></pokemon-evolution>
   </div>
   <section v-if="error">
     <base-card>
@@ -44,14 +31,13 @@
 <script>
 import { onMounted, ref, computed } from 'vue';
 import { useStore } from 'vuex';
-import { useRouter, useRoute } from 'vue-router';
+import PokemonEvolution from '../../components/pokemons/PokemonEvolution.vue';
 
 export default {
+  components: { PokemonEvolution },
   props: ['id'],
   setup(props) {
     const store = useStore();
-    const route = useRoute();
-    const router = useRouter();
     const error = ref(null);
     const isLoading = ref(false);
 
@@ -69,17 +55,7 @@ export default {
 
     const pokemon = computed(() => store.getters.currentPokemon);
 
-    const changePokemon = async id => {
-      const path = route.path.replace(props.id, id);
-      router.replace(path);
-      await getPokemon(id);
-    };
-
-    const evoSelected = id => {
-      return { evoSelected: props.id === id };
-    };
-
-    return { error, p: pokemon, isLoading, changePokemon, evoSelected };
+    return { error, p: pokemon, isLoading };
   }
 };
 </script>
@@ -104,45 +80,5 @@ section {
 
 h2 {
   text-transform: uppercase;
-}
-
-.pokemon-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.pokemon-info {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.clickable:hover {
-  cursor: pointer;
-}
-
-.actions {
-  display: flex;
-  justify-content: center;
-}
-
-.pokemon-list > .card {
-  margin: 0.25rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-p {
-  margin: 0px;
-  text-align: center;
-}
-
-.evoSelected {
-  border-width: 3px;
-  border-color: #3d008d;
-  border-style: solid;
 }
 </style>
