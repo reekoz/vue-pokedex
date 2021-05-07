@@ -11,6 +11,14 @@
   <div v-if="isLoading">
     <base-spinner></base-spinner>
   </div>
+  <section>
+    <vue-multiselect
+      v-model="selectedTypes"
+      :options="pokemonTypes"
+      @change="onTypeChange"
+      :placeholder="'Select type...'"
+    />
+  </section>
   <section class="pokemon-list">
     <base-card v-for="p in finalPokemons" :key="p.id">
       <div class="pokemon-info">
@@ -26,16 +34,19 @@
 
 <script>
 import { useStore } from 'vuex';
-import { computed, ref, onMounted } from 'vue';
+import { computed, ref, onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 
 export default {
   setup() {
     const store = useStore();
     const route = useRoute();
-    const pokemons = computed(() => store.getters.pokemons);
+    const pokemons = computed(() => store.getters.filteredPokemons);
     const sort = ref(null);
     const query = ref('');
+    const selectedTypes = reactive([]);
+
+    const pokemonTypes = computed(() => store.getters.pokemonTypes);
 
     const isLoading = ref(false);
 
@@ -43,6 +54,12 @@ export default {
       isLoading.value = true;
       try {
         await store.dispatch('fetchPokemons');
+      } catch (error) {
+        error.value = error.value.message || 'Something went wrong!';
+      }
+
+      try {
+        await store.dispatch('fetchPokemonTypes');
       } catch (error) {
         error.value = error.value.message || 'Something went wrong!';
       }
@@ -86,18 +103,39 @@ export default {
 
     const detailLink = id => route.path + '/' + id;
 
+    const onTypeChange = async type => {
+      if (!type) {
+        store.dispatch('resetFilteredPokemon');
+        return;
+      }
+
+      isLoading.value = true;
+      try {
+        await store.dispatch('filterPokemonByType', {
+          type: type.toLowerCase()
+        });
+      } catch (error) {
+        error.value = error.value.message || 'Something went wrong!';
+      }
+      isLoading.value = false;
+    };
+
     return {
       finalPokemons,
       performSort,
       query,
       updateSearch,
       detailLink,
-      isLoading
+      isLoading,
+      pokemonTypes,
+      selectedTypes,
+      onTypeChange
     };
   }
 };
 </script>
 
+<style src="@vueform/multiselect/themes/default.css"></style>
 <style scoped>
 .pokemon-list {
   display: flex;
@@ -129,5 +167,9 @@ div {
 .actions {
   display: flex;
   justify-content: center;
+}
+
+.multiselect {
+  margin: 0 25rem;
 }
 </style>

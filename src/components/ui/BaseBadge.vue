@@ -36,12 +36,13 @@ export default {
 }
 
 .flying {
-  background-color: #4f9494;
-  color: white;
+  background-color: #ade9da;
+  color: black;
 }
+
 .poison {
-  background-color: #7b9605;
-  color: white;
+  background-color: #bbbe06;
+  color: black;
 }
 
 .ground {
@@ -50,40 +51,42 @@ export default {
 }
 
 .rock {
-  background-color: #797979;
-  color: white;
+  background-color: #c4c4c4;
+  color: black;
 }
 .bug {
-  background-color: #03460e;
-  color: white;
+  background-color: #5fd132;
+  color: black;
 }
 
 .ghost {
-  background-color: #575757;
-  color: white;
+  background-color: #d6d6d6;
+  color: black;
 }
 
 .steel {
   background-color: #7a7a7a;
   color: white;
 }
+
 .fire {
-  background-color: #b92020;
+  background-color: #e23a3a;
   color: white;
 }
 
 .water {
-  background-color: #138a70;
-  color: white;
+  background-color: #35b89b;
+  color: black;
 }
 
 .grass {
-  background-color: #16a529;
+  background-color: #07911a;
   color: white;
 }
+
 .electric {
-  background-color: #cabf29;
-  color: white;
+  background-color: #f8ec3c;
+  color: black;
 }
 
 .psychic {
@@ -92,11 +95,12 @@ export default {
 }
 
 .ice {
-  background-color: #418ba1;
-  color: white;
+  background-color: #7ecde6;
+  color: black;
 }
+
 .dragon {
-  background-color: #810e27;
+  background-color: #691225;
   color: white;
 }
 
@@ -106,16 +110,17 @@ export default {
 }
 
 .fairy {
-  background-color: #993a85;
-  color: white;
+  background-color: #df74d0;
+  color: black;
 }
+
 .unknown {
-  background-color: #3d008d;
+  background-color: #797979;
   color: white;
 }
 
 .shadow {
-  background-color: #3f3f3f;
+  background-color: #313131;
   color: white;
 }
 </style>

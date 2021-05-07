@@ -4,7 +4,7 @@
       type="search"
       @input="search"
       :value="searchTerm"
-      placeholder="Filter items"
+      placeholder="Search..."
     />
   </form>
 </template>

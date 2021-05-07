@@ -8,7 +8,9 @@ const store = createStore({
   state() {
     return {
       pokemons: [],
-      currentPokemon: null
+      currentPokemon: null,
+      pokemonTypes: [],
+      filteredPokemons: []
     };
   },
   getters,

@@ -4,5 +4,11 @@ export default {
   },
   currentPokemon(state) {
     return state.currentPokemon;
+  },
+  pokemonTypes(state) {
+    return state.pokemonTypes;
+  },
+  filteredPokemons(state) {
+    return state.filteredPokemons;
   }
 };

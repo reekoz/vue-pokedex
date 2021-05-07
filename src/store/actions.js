@@ -14,20 +14,24 @@ export default {
 
     const responseData = await response.json();
 
-    const pokemons = [];
-
-    responseData.results.forEach((p, i) => {
+    const pokemons = responseData.results.map((p, i) => {
       const id = i + 1;
-      pokemons.push({
+      return {
         id,
         name: p.name,
         sprites: {
           front_default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
         }
-      });
+      };
     });
 
     context.commit('setPokemons', pokemons);
+    context.commit('setFilteredPokemons', pokemons);
+  },
+  resetFilteredPokemon(context) {
+    const pokemons = context.getters.pokemons;
+    context.commit('setPokemons', pokemons);
+    context.commit('setFilteredPokemons', pokemons);
   },
   async getPokemon(context, payload) {
     context.commit('pokemonDetail', null);
@@ -91,5 +95,47 @@ export default {
     pokemon.evolutions = populateEvolutions(rootChain.chain).reverse();
 
     context.commit('pokemonDetail', pokemon);
+  },
+  async fetchPokemonTypes(context) {
+    const response = await fetch('https://pokeapi.co/api/v2/type');
+
+    if (!response.ok) {
+      let message = 'Failed to fetch! ';
+      if (responseData.error.message) {
+        message += responseData.error.message;
+      } else message += responseData.message;
+
+      const err = new Error(message);
+      throw err;
+    }
+
+    const responseData = await response.json();
+
+    const types = responseData.results.map(t => t.name.toUpperCase());
+    context.commit('setPokemonTypes', types);
+  },
+  async filterPokemonByType(context, payload) {
+    const response = await fetch(
+      'https://pokeapi.co/api/v2/type/' + payload.type
+    );
+
+    if (!response.ok) {
+      let message = 'Failed to fetch! ';
+      if (responseData.error.message) {
+        message += responseData.error.message;
+      } else message += responseData.message;
+
+      const err = new Error(message);
+      throw err;
+    }
+
+    const responseData = await response.json();
+    const typePokemons = [...responseData.pokemon.map(p => p.pokemon.name)];
+
+    const pokemons = context.getters.pokemons.filter(p =>
+      typePokemons.includes(p.name)
+    );
+
+    context.commit('setFilteredPokemons', pokemons);
   }
 };

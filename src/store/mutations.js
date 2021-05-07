@@ -4,5 +4,11 @@ export default {
   },
   pokemonDetail(state, payload) {
     state.currentPokemon = payload;
+  },
+  setPokemonTypes(state, payload) {
+    state.pokemonTypes = payload;
+  },
+  setFilteredPokemons(state, payload) {
+    state.filteredPokemons = payload;
   }
 };

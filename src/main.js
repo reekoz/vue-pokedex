@@ -8,6 +8,8 @@ import BaseButton from './components/ui/BaseButton.vue';
 import BaseBadge from './components/ui/BaseBadge.vue';
 import BaseSpinner from './components/ui/BaseSpinner.vue';
 import BaseSearch from './components/ui/BaseSearch.vue';
+import Multiselect from '@vueform/multiselect';
+
 
 const BaseDialog = defineAsyncComponent(() =>
   import('./components/ui/BaseDialog.vue')
@@ -24,5 +26,6 @@ app.component('base-badge', BaseBadge);
 app.component('base-spinner', BaseSpinner);
 app.component('base-dialog', BaseDialog);
 app.component('base-search', BaseSearch);
+app.component('vue-multiselect', Multiselect);
 
 app.mount('#app');
