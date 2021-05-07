@@ -9,6 +9,7 @@
           <h2>{{ p.name }}</h2>
           <img :src="p.sprites.front_default" />
         </header>
+        <br>
         <section>
           <base-badge
             v-for="rootType in p.types"
@@ -18,6 +19,7 @@
           ></base-badge>
         </section>
       </base-card>
+      <pokemon-stats :stats="p.stats"></pokemon-stats>
     </section>
     <pokemon-evolution :pokemon="p"></pokemon-evolution>
   </div>
@@ -32,9 +34,10 @@
 import { onMounted, ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import PokemonEvolution from '../../components/pokemons/PokemonEvolution.vue';
+import PokemonStats from '../../components/pokemons/PokemonStats.vue';
 
 export default {
-  components: { PokemonEvolution },
+  components: { PokemonEvolution, PokemonStats },
   props: ['id'],
   setup(props) {
     const store = useStore();
