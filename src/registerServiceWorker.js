@@ -25,9 +25,9 @@ if (process.env.NODE_ENV === 'production') {
     },
     updated() {
       console.log('New content is available; please refresh.');
-      store.dispatch('toggleDialogUpdateReady', {
-        show: true
-      });
+      // store.dispatch('toggleDialogUpdateReady', {
+      //   show: true
+      // });
     },
     offline() {
       console.log(
