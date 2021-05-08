@@ -1,4 +1,5 @@
 <template>
+  <form action="/" method="POST" ref="refreshForm"></form>
   <base-dialog
     title="Update Found"
     :show="showDialogUpdateFound"
@@ -59,8 +60,13 @@ export default {
     const sort = ref(null);
     const query = ref('');
     const selectedTypes = reactive([]);
-    const showDialogUpdateFound = computed(() => store.getters.showDialogUpdateFound);
-    const showDialogUpdateReady = computed(() => store.getters.showDialogUpdateReady);
+    const showDialogUpdateFound = computed(
+      () => store.getters.showDialogUpdateFound
+    );
+    const showDialogUpdateReady = computed(
+      () => store.getters.showDialogUpdateReady
+    );
+    const refreshForm = ref(null);
 
     const pokemonTypes = computed(() => store.getters.pokemonTypes);
 
@@ -146,7 +152,8 @@ export default {
       store.dispatch('toggleDialogUpdateReady', {
         show: false
       });
-      history.go(0);
+      // document.location.reload(true);
+      refreshForm.value.nativeElement.submit();
     };
 
     return {
@@ -163,6 +170,7 @@ export default {
       showDialogUpdateReady,
       onCloseDialogUpdateFound,
       onCloseDialogUpdateReady,
+      refreshForm
     };
   }
 };
