@@ -11,7 +11,10 @@ export default {
   filteredPokemons(state) {
     return state.filteredPokemons;
   },
-  showDialog(state) {
-    return state.showDialog;
+  showDialogUpdateFound(state) {
+    return state.showDialogUpdateFound;
+  },
+  showDialogUpdateReady(state) {
+    return state.showDialogUpdateReady;
   }
 };

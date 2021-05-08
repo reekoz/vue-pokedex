@@ -19,10 +19,15 @@ if (process.env.NODE_ENV === 'production') {
     },
     updatefound() {
       console.log('New content is downloading.');
+      store.dispatch('toggleDialogUpdateFound', {
+        show: true
+      });
     },
     updated() {
       console.log('New content is available; please refresh.');
-      store.dispatch('toggleDialog', { show: true });
+      store.dispatch('toggleDialogUpdateReady', {
+        show: true
+      });
     },
     offline() {
       console.log(

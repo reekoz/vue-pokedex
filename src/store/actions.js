@@ -138,7 +138,10 @@ export default {
 
     context.commit('setFilteredPokemons', pokemons);
   },
-  toggleDialog(context, payload) {
-    context.commit('setDialogState', payload.show);
+  toggleDialogUpdateFound(context, payload) {
+    context.commit('setDialogStateUpdateFound', payload.show);
+  },
+  toggleDialogUpdateReady(context, payload) {
+    context.commit('setDialogStateUpdateReady', payload.show);
   }
 };

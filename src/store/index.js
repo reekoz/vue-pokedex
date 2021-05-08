@@ -11,7 +11,8 @@ const store = createStore({
       currentPokemon: null,
       pokemonTypes: [],
       filteredPokemons: [],
-      showDialog: false
+      showDialogUpdateFound: false,
+      showDialogUpdateReady: false,
     };
   },
   getters,

@@ -1,10 +1,17 @@
 <template>
   <base-dialog
-    title="New version"
-    :show="showDialog"
-    @close="onCloseDialogNewVersion"
+    title="Update Found"
+    :show="showDialogUpdateFound"
+    @close="onCloseDialogUpdateFound"
   >
-    <p>A new version is available, close dialog to refresh the page and install it!</p>
+    <p>A new version is available, downloading and installing right now...</p>
+  </base-dialog>
+  <base-dialog
+    title="Update Ready"
+    :show="showDialogUpdateReady"
+    @close="onCloseDialogUpdateReady"
+  >
+    <p>The new version is ready! Close to refresh the page</p>
   </base-dialog>
   <div class="actions">
     <base-button mode="flat" @click="performSort('asc')"
@@ -52,7 +59,8 @@ export default {
     const sort = ref(null);
     const query = ref('');
     const selectedTypes = reactive([]);
-    const showDialog = computed(() => store.getters.showDialog);
+    const showDialogUpdateFound = computed(() => store.getters.showDialogUpdateFound);
+    const showDialogUpdateReady = computed(() => store.getters.showDialogUpdateReady);
 
     const pokemonTypes = computed(() => store.getters.pokemonTypes);
 
@@ -128,8 +136,14 @@ export default {
       isLoading.value = false;
     };
 
-    const onCloseDialogNewVersion = () => {
-      store.dispatch('toggleDialog', {
+    const onCloseDialogUpdateFound = () => {
+      store.dispatch('toggleDialogUpdateFound', {
+        show: false
+      });
+    };
+
+    const onCloseDialogUpdateReady = () => {
+      store.dispatch('toggleDialogUpdateReady', {
         show: false
       });
       document.location.reload();
@@ -145,8 +159,10 @@ export default {
       pokemonTypes,
       selectedTypes,
       onTypeChange,
-      showDialog,
-      onCloseDialogNewVersion
+      showDialogUpdateFound,
+      showDialogUpdateReady,
+      onCloseDialogUpdateFound,
+      onCloseDialogUpdateReady,
     };
   }
 };

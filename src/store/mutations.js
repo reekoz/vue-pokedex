@@ -11,7 +11,10 @@ export default {
   setFilteredPokemons(state, payload) {
     state.filteredPokemons = payload;
   },
-  setDialogState(state, payload) {
-    state.showDialog = payload;
-  }
+  setDialogUpdateFoundState(state, payload) {
+    state.showDialogUpdateFound = payload;
+  },
+  setDialogUpdateReadyState(state, payload) {
+    state.showDialogUpdateReady = payload;
+  },
 };
