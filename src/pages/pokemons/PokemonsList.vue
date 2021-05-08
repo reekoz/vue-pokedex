@@ -6,6 +6,7 @@
     @close="onCloseDialogUpdateFound"
   >
     <p>A new version is available, downloading and installing right now...</p>
+    <p>Please reload the page</p>
   </base-dialog>
   <base-dialog
     title="Update Ready"
@@ -152,8 +153,7 @@ export default {
       store.dispatch('toggleDialogUpdateReady', {
         show: false
       });
-      // document.location.reload(true);
-      refreshForm.value.submit();
+      document.location.reload(true);
     };
 
     return {
