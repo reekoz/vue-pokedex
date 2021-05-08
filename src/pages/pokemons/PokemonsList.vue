@@ -146,7 +146,7 @@ export default {
       store.dispatch('toggleDialogUpdateReady', {
         show: false
       });
-      location.reload();
+      location.reload(true);
     };
 
     return {
