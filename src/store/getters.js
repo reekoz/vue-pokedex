@@ -10,5 +10,8 @@ export default {
   },
   filteredPokemons(state) {
     return state.filteredPokemons;
+  },
+  showDialog(state) {
+    return state.showDialog;
   }
 };

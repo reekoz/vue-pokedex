@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import { register } from 'register-service-worker';
+import store from './store/index.js';
 
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {
@@ -21,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
     },
     updated() {
       console.log('New content is available; please refresh.');
-      document.location.reload();
+      store.dispatch('toggleDialog', { show: true });
     },
     offline() {
       console.log(

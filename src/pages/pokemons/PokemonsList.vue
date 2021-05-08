@@ -1,4 +1,11 @@
 <template>
+  <base-dialog
+    title="New version"
+    :show="showDialog"
+    @close="onCloseDialogNewVersion"
+  >
+    <p>A new version is available, close dialog to refresh the page and install it!</p>
+  </base-dialog>
   <div class="actions">
     <base-button mode="flat" @click="performSort('asc')"
       >Sort Ascending</base-button
@@ -45,6 +52,7 @@ export default {
     const sort = ref(null);
     const query = ref('');
     const selectedTypes = reactive([]);
+    const showDialog = computed(() => store.getters.showDialog);
 
     const pokemonTypes = computed(() => store.getters.pokemonTypes);
 
@@ -120,6 +128,13 @@ export default {
       isLoading.value = false;
     };
 
+    const onCloseDialogNewVersion = () => {
+      store.dispatch('toggleDialog', {
+        show: false
+      });
+      document.location.reload();
+    };
+
     return {
       finalPokemons,
       performSort,
@@ -129,7 +144,9 @@ export default {
       isLoading,
       pokemonTypes,
       selectedTypes,
-      onTypeChange
+      onTypeChange,
+      showDialog,
+      onCloseDialogNewVersion
     };
   }
 };

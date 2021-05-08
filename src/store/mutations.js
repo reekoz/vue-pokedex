@@ -10,5 +10,8 @@ export default {
   },
   setFilteredPokemons(state, payload) {
     state.filteredPokemons = payload;
+  },
+  setDialogState(state, payload) {
+    state.showDialog = payload;
   }
 };

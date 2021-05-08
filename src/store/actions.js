@@ -137,5 +137,8 @@ export default {
     );
 
     context.commit('setFilteredPokemons', pokemons);
+  },
+  toggleDialog(context, payload) {
+    context.commit('setDialogState', payload.show);
   }
 };

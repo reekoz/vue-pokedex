@@ -10,7 +10,8 @@ const store = createStore({
       pokemons: [],
       currentPokemon: null,
       pokemonTypes: [],
-      filteredPokemons: []
+      filteredPokemons: [],
+      showDialog: false
     };
   },
   getters,
