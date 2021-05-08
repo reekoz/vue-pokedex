@@ -28,4 +28,12 @@ html {
 body {
   margin: 0;
 }
+
+.multiselect-option.is-selected {
+  background: #3d008d;
+}
+
+.multiselect-option.is-selected.is-pointed {
+  background: #5300be;
+}
 </style>
