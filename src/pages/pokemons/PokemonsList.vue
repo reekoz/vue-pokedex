@@ -1,5 +1,4 @@
 <template>
-  <form action="/" method="POST" ref="refreshForm"></form>
   <base-dialog
     title="Update Found"
     :show="showDialogUpdateFound"
@@ -15,7 +14,7 @@
   >
     <p>The new version is ready! Close to refresh the page</p>
   </base-dialog>
-  <div class="actions">
+  <div class="actions" v-if="!isLoading">
     <base-button mode="flat" @click="performSort('asc')"
       >Sort Ascending</base-button
     >
@@ -24,10 +23,7 @@
     >
     <base-search @search="updateSearch" :search-term="query"></base-search>
   </div>
-  <div v-if="isLoading">
-    <base-spinner></base-spinner>
-  </div>
-  <section>
+  <section v-if="!isLoading">
     <vue-multiselect
       v-model="selectedTypes"
       :options="pokemonTypes"
@@ -35,6 +31,9 @@
       :placeholder="'Select type...'"
     />
   </section>
+  <div v-if="isLoading">
+    <base-spinner></base-spinner>
+  </div>
   <section class="pokemon-list">
     <base-card v-for="p in finalPokemons" :key="p.id">
       <div class="pokemon-info">
@@ -67,7 +66,6 @@ export default {
     const showDialogUpdateReady = computed(
       () => store.getters.showDialogUpdateReady
     );
-    const refreshForm = ref(null);
 
     const pokemonTypes = computed(() => store.getters.pokemonTypes);
 
@@ -169,8 +167,7 @@ export default {
       showDialogUpdateFound,
       showDialogUpdateReady,
       onCloseDialogUpdateFound,
-      onCloseDialogUpdateReady,
-      refreshForm
+      onCloseDialogUpdateReady
     };
   }
 };

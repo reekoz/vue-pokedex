@@ -1,29 +1,40 @@
 export default {
   async fetchPokemons(context) {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=200');
+    let pokemons = [];
+    let pokemonsJson = localStorage.getItem('pokemons');
 
-    if (!response.ok) {
-      let message = 'Failed to fetch! ';
-      if (responseData.error.message) {
-        message += responseData.error.message;
-      } else message += responseData.message;
+    if (!pokemonsJson) {
+      const response = await fetch(
+        'https://pokeapi.co/api/v2/pokemon?limit=898'
+      );
 
-      const err = new Error(message);
-      throw err;
+      if (!response.ok) {
+        let message = 'Failed to fetch! ';
+        if (responseData.error.message) {
+          message += responseData.error.message;
+        } else message += responseData.message;
+
+        const err = new Error(message);
+        throw err;
+      }
+
+      const responseData = await response.json();
+
+      pokemons = responseData.results.map((p, i) => {
+        const id = i + 1;
+        return {
+          id,
+          name: p.name,
+          sprites: {
+            front_default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+          }
+        };
+      });
+
+      localStorage.setItem('pokemons', JSON.stringify(pokemons));
+    } else {
+      pokemons = JSON.parse(pokemonsJson);
     }
-
-    const responseData = await response.json();
-
-    const pokemons = responseData.results.map((p, i) => {
-      const id = i + 1;
-      return {
-        id,
-        name: p.name,
-        sprites: {
-          front_default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
-        }
-      };
-    });
 
     context.commit('setPokemons', pokemons);
     context.commit('setFilteredPokemons', pokemons);
@@ -97,21 +108,32 @@ export default {
     context.commit('pokemonDetail', pokemon);
   },
   async fetchPokemonTypes(context) {
-    const response = await fetch('https://pokeapi.co/api/v2/type');
+    let types = [];
+    let typesJson = localStorage.getItem('types');
 
-    if (!response.ok) {
-      let message = 'Failed to fetch! ';
-      if (responseData.error.message) {
-        message += responseData.error.message;
-      } else message += responseData.message;
+    if (!typesJson) {
+      const response = await fetch('https://pokeapi.co/api/v2/type');
 
-      const err = new Error(message);
-      throw err;
+      if (!response.ok) {
+        let message = 'Failed to fetch! ';
+        if (responseData.error.message) {
+          message += responseData.error.message;
+        } else message += responseData.message;
+
+        const err = new Error(message);
+        throw err;
+      }
+
+      const responseData = await response.json();
+
+      types = responseData.results
+        .map(t => t.name.toUpperCase())
+        .sort((a, b) => a > b ? 1 : -1);
+
+      localStorage.setItem('types', JSON.stringify(types));
+    } else {
+      types = JSON.parse(typesJson);
     }
-
-    const responseData = await response.json();
-
-    const types = responseData.results.map(t => t.name.toUpperCase());
     context.commit('setPokemonTypes', types);
   },
   async filterPokemonByType(context, payload) {
