@@ -153,8 +153,7 @@ export default {
         show: false
       });
       // document.location.reload(true);
-      console.log(refreshForm.value);
-      // refreshForm.value.nativeElement.submit();
+      refreshForm.value.submit();
     };
 
     return {
