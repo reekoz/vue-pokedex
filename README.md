@@ -9,6 +9,7 @@
   <li>Vuex to fetch Pokemon API (<a href="https://pokeapi.co/">Pokeapi</a>)</li> 
   <li>PWA with Service Worker (<a href="https://ionicframework.com/docs/vue/pwa">Guide</a>)</li>
   <li>Composition API (<a href="https://v3.vuejs.org/guide/composition-api-introduction.html">Docs</a>)</li>
+  <li>Select component made by <a href="https://github.com/vueform/multiselect">Vue 3 Multiselect</a></li>
 </ul>
 
 ## Project setup
