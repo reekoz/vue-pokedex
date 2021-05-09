@@ -26,7 +26,7 @@ export default {
 }
 
 .normal {
-  background-color: #3d008d;
+  background-color: #363b81;
   color: white;
 }
 

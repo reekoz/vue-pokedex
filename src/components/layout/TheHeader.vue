@@ -17,7 +17,7 @@
 header {
   width: 100%;
   height: 5rem;
-  background-color: #3d008d;
+  background-color: #363b81;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +25,7 @@ header {
 
 header a {
   text-decoration: none;
-  color: #f391e3;
+  color: #fbd743;
   display: inline-block;
   padding: 0.75rem 1.5rem;
   border: 1px solid transparent;
@@ -34,7 +34,7 @@ header a {
 a:active,
 a:hover,
 a.router-link-active {
-  border: 1px solid #f391e3;
+  border: 1px solid #fbd743;
 }
 
 h1 {

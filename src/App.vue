@@ -30,10 +30,10 @@ body {
 }
 
 .multiselect-option.is-selected {
-  background: #3d008d;
+  background: #363b81;
 }
 
 .multiselect-option.is-selected.is-pointed {
-  background: #5300be;
+  background: #4e56be;
 }
 </style>

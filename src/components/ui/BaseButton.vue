@@ -36,8 +36,8 @@ a {
   padding: 0.5rem 1.2rem;
   font: inherit;
   font-size: .75rem;
-  background-color: #3a0061;
-  border: 1px solid #3a0061;
+  background-color: #363b81;
+  border: 1px solid #363b81;
   color: white;
   cursor: pointer;
   margin-right: 0.5rem;
@@ -48,20 +48,20 @@ a:hover,
 a:active,
 button:hover,
 button:active {
-  background-color: #270041;
-  border-color: #270041;
+  background-color: #262953;
+  border-color: #262953;
 }
 
 .flat {
   background-color: transparent;
-  color: #3a0061;
+  color: #363b81;
   border: none;
 }
 
 .outline {
   background-color: transparent;
-  border-color: #270041;
-  color: #270041;
+  border-color: #363b81;
+  color: #363b81;
 }
 
 .flat:hover,

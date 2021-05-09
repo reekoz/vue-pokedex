@@ -69,7 +69,7 @@ export default {
 
 .evoSelected {
   border-width: 3px;
-  border-color: #3d008d;
+  border-color: #363b81;
   border-style: solid;
 }
 
