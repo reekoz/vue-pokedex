@@ -9,13 +9,15 @@
           <h2>{{ p.name }}</h2>
           <img :src="p.sprites.front_default" />
         </header>
-        <br>
+        <br />
         <section>
           <base-badge
             v-for="rootType in p.types"
             :key="rootType.type.name"
             :type="rootType.type.name"
             :title="rootType.type.name"
+            class="clickable"
+            @click="setPokemonType(rootType.type.name)"
           ></base-badge>
         </section>
       </base-card>
@@ -35,6 +37,7 @@ import { onMounted, ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import PokemonEvolution from '../../components/pokemons/PokemonEvolution.vue';
 import PokemonStats from '../../components/pokemons/PokemonStats.vue';
+import { useRouter } from 'vue-router';
 
 export default {
   components: { PokemonEvolution, PokemonStats },
@@ -43,6 +46,7 @@ export default {
     const store = useStore();
     const error = ref(null);
     const isLoading = ref(false);
+    const router = useRouter();
 
     const getPokemon = async id => {
       isLoading.value = true;
@@ -58,7 +62,19 @@ export default {
 
     const pokemon = computed(() => store.getters.currentPokemon);
 
-    return { error, p: pokemon, isLoading };
+    const setPokemonType = async type => {
+      store.dispatch('setSelectedType', { type: type.toUpperCase() });
+      router.replace('/pokemons');
+      try {
+        await store.dispatch('filterPokemonByType', {
+          type: type
+        });
+      } catch (error) {
+        error.value = error.value.message || 'Something went wrong!';
+      }
+    };
+
+    return { error, p: pokemon, isLoading, setPokemonType };
   }
 };
 </script>
@@ -83,5 +99,10 @@ section {
 
 h2 {
   text-transform: uppercase;
+}
+
+.clickable:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }
 </style>

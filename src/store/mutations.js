@@ -17,4 +17,7 @@ export default {
   setDialogUpdateReadyState(state, payload) {
     state.showDialogUpdateReady = payload;
   },
+  setSelectedType(state, payload) {
+    state.selectedType = payload;
+  },
 };

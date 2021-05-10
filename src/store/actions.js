@@ -43,6 +43,8 @@ export default {
     const pokemons = context.getters.pokemons;
     context.commit('setPokemons', pokemons);
     context.commit('setFilteredPokemons', pokemons);
+    context.commit('setSelectedType', null);
+
   },
   async getPokemon(context, payload) {
     context.commit('pokemonDetail', null);
@@ -165,5 +167,8 @@ export default {
   },
   toggleDialogUpdateReady(context, payload) {
     context.commit('setDialogUpdateReadyState', payload.show);
+  },
+  setSelectedType(context, payload) {
+    context.commit('setSelectedType', payload.type);
   }
 };

@@ -13,6 +13,7 @@ const store = createStore({
       filteredPokemons: [],
       showDialogUpdateFound: false,
       showDialogUpdateReady: false,
+      selectedType: []
     };
   },
   getters,

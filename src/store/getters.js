@@ -16,5 +16,8 @@ export default {
   },
   showDialogUpdateReady(state) {
     return state.showDialogUpdateReady;
-  }
+  },
+  selectedType(state) {
+    return state.selectedType;
+  },
 };

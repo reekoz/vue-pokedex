@@ -23,9 +23,10 @@
     >
     <base-search @search="updateSearch" :search-term="query"></base-search>
   </div>
-  <section v-if="!isLoading">
+  <section>
     <vue-multiselect
-      v-model="selectedTypes"
+      ref="multiselect"
+      v-model="selectedType"
       :options="pokemonTypes"
       @change="onTypeChange"
       :placeholder="'Select type...'"
@@ -49,7 +50,7 @@
 
 <script>
 import { useStore } from 'vuex';
-import { computed, ref, onMounted, reactive } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 export default {
@@ -59,7 +60,16 @@ export default {
     const pokemons = computed(() => store.getters.filteredPokemons);
     const sort = ref(null);
     const query = ref('');
-    const selectedTypes = reactive([]);
+    const multiselect = ref(null);
+
+    const selectedType = ref(store.getters.selectedType);
+
+    watch(selectedType, val => {
+      if (val) {
+        multiselect.value.select(val);
+      }
+    });
+
     const showDialogUpdateFound = computed(
       () => store.getters.showDialogUpdateFound
     );
@@ -117,11 +127,7 @@ export default {
     });
 
     const performSort = mode => (sort.value = mode);
-
-    const updateSearch = val => {
-      query.value = val;
-    };
-
+    const updateSearch = val => (query.value = val);
     const detailLink = id => route.path + '/' + id;
 
     const onTypeChange = async type => {
@@ -129,6 +135,8 @@ export default {
         store.dispatch('resetFilteredPokemon');
         return;
       }
+
+      store.dispatch('setSelectedType', { type });
 
       isLoading.value = true;
       try {
@@ -162,12 +170,13 @@ export default {
       detailLink,
       isLoading,
       pokemonTypes,
-      selectedTypes,
       onTypeChange,
       showDialogUpdateFound,
       showDialogUpdateReady,
       onCloseDialogUpdateFound,
-      onCloseDialogUpdateReady
+      onCloseDialogUpdateReady,
+      multiselect,
+      selectedType
     };
   }
 };
