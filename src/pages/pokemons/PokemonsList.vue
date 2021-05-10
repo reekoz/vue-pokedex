@@ -38,7 +38,7 @@
   <section class="pokemon-list">
     <base-card v-for="p in finalPokemons" :key="p.id">
       <div class="pokemon-info">
-        <img :src="p.sprites.front_default" />
+        <img :src="'/img/pokemons/' + p.id + '.png'" />
         <h4>{{ p.name }}</h4>
       </div>
       <div class="actions">

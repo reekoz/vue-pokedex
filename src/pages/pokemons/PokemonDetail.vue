@@ -7,7 +7,7 @@
       <base-card>
         <header>
           <h2>{{ p.name }}</h2>
-          <img :src="p.sprites.front_default" />
+          <img :src="'/img/pokemons/' + p.id + '.png'" />
         </header>
         <br />
         <section>

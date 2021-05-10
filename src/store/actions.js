@@ -24,10 +24,7 @@ export default {
         const id = i + 1;
         return {
           id,
-          name: p.name,
-          sprites: {
-            front_default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
-          }
+          name: p.name
         };
       });
 
