@@ -178,7 +178,7 @@ export default {
     };
 
     const filterByColor = async color => {
-      if (!selectedColor.value) {
+      if (!selectedColor.value || color !== selectedColor.value) {
         selectedColor.value = color;
         await store.dispatch('filterPokemonByColor', { color });
       } else if (color === selectedColor.value) {
