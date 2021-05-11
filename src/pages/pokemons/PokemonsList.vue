@@ -15,13 +15,13 @@
     <p>The new version is ready! Close to refresh the page</p>
   </base-dialog>
   <div class="actions" v-if="!isLoading">
-    <span
+    <div
       class="dot"
       v-for="color in pokemonColors"
       :key="color"
       @click="filterByColor(color)"
       :class="setColorClass(color)"
-    ></span>
+    ></div>
     <base-button mode="flat" @click="performSort('asc')"
       >Sort Ascending</base-button
     >
@@ -181,7 +181,7 @@ export default {
       if (!selectedColor.value) {
         selectedColor.value = color;
         await store.dispatch('filterPokemonByColor', { color });
-      } else {
+      } else if (color === selectedColor.value) {
         selectedColor.value = null;
         store.dispatch('resetFilteredPokemon');
       }
