@@ -1,11 +1,11 @@
 export default {
-  async fetchPokemons(context) {
+  async fetchPokemons(context, payload) {
     let pokemons = [];
     let pokemonsJson = localStorage.getItem('pokemons');
 
     if (!pokemonsJson) {
       const response = await fetch(
-        'https://pokeapi.co/api/v2/pokemon?limit=898'
+        `https://pokeapi.co/api/v2/pokemon?limit=${payload.limit}&offset=${payload.offset}`
       );
 
       if (!response.ok) {
@@ -41,7 +41,6 @@ export default {
     context.commit('setPokemons', pokemons);
     context.commit('setFilteredPokemons', pokemons);
     context.commit('setSelectedType', null);
-
   },
   async getPokemon(context, payload) {
     context.commit('pokemonDetail', null);
@@ -127,7 +126,7 @@ export default {
 
       types = responseData.results
         .map(t => t.name.toUpperCase())
-        .sort((a, b) => a > b ? 1 : -1);
+        .sort((a, b) => (a > b ? 1 : -1));
 
       localStorage.setItem('types', JSON.stringify(types));
     } else {
@@ -167,5 +166,31 @@ export default {
   },
   setSelectedType(context, payload) {
     context.commit('setSelectedType', payload.type);
+  },
+  async filterPokemonByColor(context, payload) {
+    const response = await fetch(
+      'https://pokeapi.co/api/v2/pokemon-color/' + payload.color
+    );
+
+    if (!response.ok) {
+      let message = 'Failed to fetch! ';
+      if (responseData.error.message) {
+        message += responseData.error.message;
+      } else message += responseData.message;
+
+      const err = new Error(message);
+      throw err;
+    }
+
+    const responseData = await response.json();
+    const colorPokemons = [
+      ...responseData.pokemon_species.map(p => p.name)
+    ];
+
+    const pokemons = context.getters.pokemons.filter(p =>
+      colorPokemons.includes(p.name)
+    );
+
+    context.commit('setFilteredPokemons', pokemons);
   }
 };

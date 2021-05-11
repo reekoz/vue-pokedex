@@ -13,7 +13,19 @@ const store = createStore({
       filteredPokemons: [],
       showDialogUpdateFound: false,
       showDialogUpdateReady: false,
-      selectedType: []
+      selectedType: [],
+      pokemonColors: [
+        'black',
+        'blue',
+        'brown',
+        'gray',
+        'green',
+        'pink',
+        'purple',
+        'red',
+        'white',
+        'yellow'
+      ]
     };
   },
   getters,

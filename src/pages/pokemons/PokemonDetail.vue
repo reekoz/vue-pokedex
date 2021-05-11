@@ -7,7 +7,11 @@
       <base-card>
         <header>
           <h2>{{ p.name }}</h2>
-          <img :src="'/img/pokemons/' + p.id + '.png'" />
+          <img
+            :src="'/img/pokemons/' + p.id + '.png'"
+            width="96"
+            height="96"
+          />
         </header>
         <br />
         <section>

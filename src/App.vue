@@ -23,6 +23,7 @@ export default {
 
 html {
   font-family: 'Play', sans-serif;
+  font-display: swap;
 }
 
 body {

@@ -15,6 +15,13 @@
     <p>The new version is ready! Close to refresh the page</p>
   </base-dialog>
   <div class="actions" v-if="!isLoading">
+    <span
+      class="dot"
+      v-for="color in pokemonColors"
+      :key="color"
+      @click="filterByColor(color)"
+      :class="setColorClass(color)"
+    ></span>
     <base-button mode="flat" @click="performSort('asc')"
       >Sort Ascending</base-button
     >
@@ -30,6 +37,7 @@
       :options="pokemonTypes"
       @change="onTypeChange"
       :placeholder="'Select type...'"
+      :searchable="true"
     />
   </section>
   <div v-if="isLoading">
@@ -38,7 +46,7 @@
   <section class="pokemon-list">
     <base-card v-for="p in finalPokemons" :key="p.id">
       <div class="pokemon-info">
-        <img :src="'/img/pokemons/' + p.id + '.png'" />
+        <img :src="'/img/pokemons/' + p.id + '.png'" width="96" height="96" />
         <h4>{{ p.name }}</h4>
       </div>
       <div class="actions">
@@ -58,9 +66,13 @@ export default {
     const store = useStore();
     const route = useRoute();
     const pokemons = computed(() => store.getters.filteredPokemons);
+    const pokemonColors = computed(() => store.getters.pokemonColors);
     const sort = ref(null);
     const query = ref('');
     const multiselect = ref(null);
+    const limit = ref(898);
+    const offset = ref(0);
+    const selectedColor = ref(null);
 
     const selectedType = ref(store.getters.selectedType);
 
@@ -84,7 +96,10 @@ export default {
     onMounted(async () => {
       isLoading.value = true;
       try {
-        await store.dispatch('fetchPokemons');
+        await store.dispatch('fetchPokemons', {
+          limit: limit.value,
+          offset: offset
+        });
       } catch (error) {
         error.value = error.value.message || 'Something went wrong!';
       }
@@ -162,6 +177,20 @@ export default {
       document.location.reload(true);
     };
 
+    const filterByColor = async color => {
+      if (!selectedColor.value) {
+        selectedColor.value = color;
+        await store.dispatch('filterPokemonByColor', { color });
+      } else {
+        selectedColor.value = null;
+        store.dispatch('resetFilteredPokemon');
+      }
+    };
+
+    const setColorClass = color => {
+      return { [color]: true, colorSelected: selectedColor.value === color };
+    };
+
     return {
       finalPokemons,
       performSort,
@@ -176,7 +205,10 @@ export default {
       onCloseDialogUpdateFound,
       onCloseDialogUpdateReady,
       multiselect,
-      selectedType
+      selectedType,
+      pokemonColors,
+      filterByColor,
+      setColorClass
     };
   }
 };
@@ -218,5 +250,68 @@ div {
 
 .multiselect {
   margin: 0 25rem;
+}
+
+.dot {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 0.2rem;
+}
+
+.dot:hover {
+  opacity: 0.65;
+  cursor: pointer;
+}
+
+.black {
+  background-color: rgba(20, 20, 20, 1);
+  color: white;
+}
+.blue {
+  background-color: #3498db;
+  color: black;
+}
+.brown {
+  background-color: rgb(112, 63, 22);
+  color: white;
+}
+.gray {
+  background-color: #aaa;
+  color: black;
+}
+.green {
+  background-color: #16a085;
+  color: white;
+}
+.pink {
+  background-color: #e08283;
+  color: black;
+}
+.purple {
+  background-color: #9b59b6;
+  color: white;
+}
+.red {
+  background-color: #c0392b;
+  color: white;
+}
+.white {
+  background-color: #fff;
+  color: black;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+}
+.yellow {
+  background-color: #f1c40f;
+  color: black;
+}
+
+.colorSelected {
+  border-width: 3px;
+  border-color: #363b81;
+  border-style: solid;
 }
 </style>

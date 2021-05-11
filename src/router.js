@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import PokemonsList from './pages/pokemons/PokemonsList.vue';
-import PokemonDetail from './pages/pokemons/PokemonDetail.vue';
-import NotFound from './pages/NotFound.vue';
+
+const PokemonDetail = () => import('./pages/pokemons/PokemonDetail.vue');
+const NotFound = () => import('./pages/NotFound.vue');
 
 const router = createRouter({
   history: createWebHistory(),

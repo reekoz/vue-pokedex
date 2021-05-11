@@ -11,7 +11,6 @@ import BaseSearch from './components/ui/BaseSearch.vue';
 import Multiselect from '@vueform/multiselect';
 import './registerServiceWorker'
 
-
 const BaseDialog = defineAsyncComponent(() =>
   import('./components/ui/BaseDialog.vue')
 );

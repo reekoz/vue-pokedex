@@ -20,4 +20,7 @@ export default {
   selectedType(state) {
     return state.selectedType;
   },
+  pokemonColors(state) {
+    return state.pokemonColors;
+  },
 };
