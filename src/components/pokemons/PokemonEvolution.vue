@@ -8,7 +8,7 @@
     >
       <div class="pokemon-info" @click="changePokemon(evo.id)">
         <img :src="evo.image" />
-        <h4>{{ evo.name }}</h4>
+        <h4>{{ evo.name.toUpperCase() }}</h4>
       </div>
     </base-card>
   </section>
